@@ -25,6 +25,7 @@ module.exports = {
 	resolve: {
 		//dua đường dẫn các module vào đây cho dễ quản lý
 		root: __dirname,
+		//dua folder duong dan cua cac components thi ko can khai bao alias nua
 		modulesDirectories: [
 			'node_modules',
 			'./app/components/'
