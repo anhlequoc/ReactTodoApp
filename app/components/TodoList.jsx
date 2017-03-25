@@ -8,7 +8,7 @@ var TodoList = React.createClass({
       return todos.map((todo) => {
         {/*moi <Todo /> component can co 1 unique key prop dung de quan ly tung component rieng biet*/}
         return (
-          <Todo key={todo.id} {...todo}/> //... la spread obj, spread out all properties of each individual Todo component
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/> //... la spread obj, spread out all properties of each individual Todo component
         );
       });
     };
