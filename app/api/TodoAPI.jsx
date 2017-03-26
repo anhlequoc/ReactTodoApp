@@ -25,5 +25,42 @@ module.exports = {
     // } else {
     //   return [];
     // }
+  },
+
+  filterTodos: function(todos, showCompleted, searchText) {
+    var filteredTodos = todos;
+
+    // filter by showCompleted
+    filteredTodos = filteredTodos.filter((todo) => { //dung callback
+      return !todo.completed || showCompleted;
+    });
+
+    // filter by searchText
+    filteredTodos = filteredTodos.filter((todo) => {
+      //return true: item ở trong array, return false: item bị loại khỏi array
+      if (searchText.length === 0 || searchText === null) {
+        return true;
+      } else if (todo.text.toLowerCase().indexOf(searchText) !== -1) { // -1 tức không có trong string.indexOf
+        return true;
+      } else {return false;}
+
+      /* solution
+        return searchText.length === 0 || todo.text.toLowerCase().indexOf(searchText) > -1;
+
+      */
+    });
+
+    // Sort todos with non-completed first
+    filteredTodos.sort((a, b) => {
+      if (a.completed === false && b.completed === true) {
+        return -1; // -1 la a truoc b
+      } else if (a.completed === true && b.completed === false) {
+        return 1; // 1 la a sau b
+      } else {
+        return 0;
+      }
+    });
+
+    return filteredTodos;
   }
 };
