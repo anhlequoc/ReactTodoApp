@@ -28,7 +28,8 @@ module.exports = {
 		//dua folder duong dan cua cac components thi ko can khai bao alias nua
 		modulesDirectories: [
 			'node_modules',
-			'./app/components/'
+			'./app/components/',
+			'./app/api'
 		],
 		alias: {
 			applicationStyles: 'app/styles/app.scss'
