@@ -4,6 +4,17 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
 var TodoApp = require('TodoApp');
 
+var actions = require('actions');
+var store = require('configureStore').configure();
+
+store.subscribe( () => {
+	console.log('New state', store.getState());
+});
+
+store.dispatch(actions.addTodo('try the redux on Todo app'));
+store.dispatch(actions.setSearchText('try'));
+store.dispatch(actions.toggleShowCompleted());
+
 // Load foundation
 //require('style!css!foundation-sites/dist/css/foundation.min.css'); - remove this line after adding 'sassLoader' obj in webpack.config
 $(document).foundation();

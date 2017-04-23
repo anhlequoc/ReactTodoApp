@@ -44,7 +44,6 @@ export var todosReducer = (state = [], action) => {
         }
       }) */
 
-
       var updatedTodos = state.map((todo) => { // dùng updatedTodos để tránh thay đỏi arr state (tranh lỗi update pure function, báo bởi deep-freeze-strict)
         if(todo.id === action.id) {
           var nextCompleted = !todo.completed;
