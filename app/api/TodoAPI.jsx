@@ -38,7 +38,7 @@ module.exports = {
     // filter by searchText
     filteredTodos = filteredTodos.filter((todo) => {
       //return true: item ở trong array, return false: item bị loại khỏi array
-      if (searchText.length === 0 || searchText === null) {
+      if (searchText === undefined || searchText.length === 0) {
         return true;
       } else if (todo.text.toLowerCase().indexOf(searchText) !== -1) { // -1 tức không có trong string.indexOf
         return true;
