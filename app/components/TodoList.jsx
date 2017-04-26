@@ -7,6 +7,7 @@ var TodoAPI = require('TodoAPI');
 export var TodoList = React.createClass({ //dung export de dung trong test file
   render: function() {
     var {todos, showCompleted, searchText} = this.props;
+    console.log(this.props);
     console.log('keyword: ', searchText);
     var renderTodos = () => {
       if(todos.length === 0) {
