@@ -1,4 +1,4 @@
-var expect = require('expect');
+  var expect = require('expect');
 var df = require('deep-freeze-strict'); //deep-freeze giúp check reducer có phải là pure function không?
 var moment = require('moment');
 
@@ -55,9 +55,28 @@ describe('Reducers:', () => {
         type: 'TOGGLE_TODO',
         id: 123
       };
-      var res = reducers.todosReducer(df(todos), df(action));      
+      var res = reducers.todosReducer(df(todos), df(action));
       expect(res[0].completed).toEqual(!todos[0].completed);
       expect(res[0].completedAt).toEqual(undefined);
+    });
+
+    it('should add existing todo', () => {
+      var todos = [{
+        id: '111',
+        text: 'test todo',
+        completed: false,
+        completedAt: undefined,
+        createAt: 33000
+      }];
+
+      var action = {
+        type: 'ADD_TODOS',
+        todos: todos
+      };
+
+      var res = reducers.todosReducer(df([]), df(action));
+      expect(res.length).toEqual(1);
+      expect(res[0]).toEqual(todos[0]);
     });
   });
 });
