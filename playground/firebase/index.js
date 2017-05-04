@@ -10,6 +10,20 @@ var config = {
   };
 firebase.initializeApp(config);
 
-firebase.database().ref().set({
-  appName: "Todo App",  
+var firebaseRef = firebase.database().ref(); // để đỡ phải viết nhiều firebase.database().ref()
+firebaseRef.set({
+  appName: "Todo App",
+  isRunning: true,
+  user: {
+    name: 'Anh Le',
+    age: 99
+  }
+});
+// set() completely wipes all of the data at the current reference that means if I were to call set again down below, the previous one will be clear
+// firebaseRef.set({
+//   appName: 'Todo Application'
+// });
+
+firebaseRef.child('user').set({
+  name: 'Andy'
 });
