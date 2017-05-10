@@ -1,3 +1,6 @@
+import moment from 'moment';
+import firebase, {firebaseRef} from 'app/firebase/';
+
 export var setSearchText = (searchText) => {
   return {
     type: 'SET_SEARCH_TEXT',
@@ -13,10 +16,30 @@ export var toggleShowCompleted = () => {
 };
 
 
-export var addTodo = (text) => {
+export var addTodo = (todo) => {
   return {
     type: 'ADD_TODO',
-    text: text
+    todo: todo
+  };
+};
+
+export var startAddTodo = (text) => {
+  return (dispatch, getState) => { //return a function that dispatch some action after data is saved in firebase
+    var todo = {
+      text: text,
+      completed: false,
+      createdAt: moment().unix(), //return timestamp
+      completedAt: null //null vì set vào firebase
+    };
+    var todoRef = firebaseRef.child('todos').push(todo); //save to firebase db
+
+    return todoRef.then(() => { //khi add todo done ở firebase thì thực hiện hàm này, dispatch addTodo action ở trên và làm browser re-render component cho todo mới
+      //khi firebase db update -> dispatch action để update view
+      dispatch(addTodo({
+        ...todo,
+        id: todoRef.key
+      }));
+    });
   };
 };
 

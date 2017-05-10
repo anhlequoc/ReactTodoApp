@@ -1,5 +1,10 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
 var expect = require('expect');
 var actions = require('actions');
+
+var createMockStore = configureMockStore([thunk]); //pass an array of middle ware
 
 describe('Actions', () => {
   it('should generate search text action', () => {
@@ -24,11 +29,33 @@ describe('Actions', () => {
   it('should generate add todo action', () => {
     var action = {
       type: 'ADD_TODO',
-      text: 'todo text'
+      todo: {
+        id: 'abc123',
+        text: 'test text',
+        completed: false,
+        createdAt: 0
+      }
     };
-    var res = actions.addTodo(action.text);
+    var res = actions.addTodo(action.todo);
 
     expect(res).toEqual(action);
+  });
+
+  //asynchronous test
+  it('should create todo and dispatch ADD_TODO', (done) => {
+    const store = createMockStore({});
+    const todoText = 'My todo item';
+
+    store.dispatch(actions.startAddTodo(todoText)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toInclude({
+        type: 'ADD_TODO'
+      });
+      expect(actions[0].todo).toInclude({
+        text: todoText
+      });
+      done(); //hàm này để xác nhận test done, nếu không có sẽ gặp lỗi error timeout vì karma chờ test finish forever
+    }).catch(done);
   });
 
   it('should generate addTodos action object', () => {
