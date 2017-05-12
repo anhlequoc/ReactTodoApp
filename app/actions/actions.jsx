@@ -50,6 +50,25 @@ export var addTodos = (todos) => {
   };
 };
 
+export var startAddTodos = () => {
+  return (dispatch, getState) => {
+    var todosRef = firebaseRef.child('todos').once('value');//fetch all data from child 'todos'
+
+    return todosRef.then((snapshot) => {
+      var todos = snapshot.val() || {}; //truong hop khong co data
+      var parsedTodos = [];
+      Object.keys(todos).forEach((todoId) => {
+        parsedTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+
+      dispatch(addTodos(parsedTodos));
+    });
+  };
+};
+
 export var updateTodo = (id, updates) => {
   return {
     type: 'UPDATE_TODO',

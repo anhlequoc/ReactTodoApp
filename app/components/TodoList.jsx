@@ -10,12 +10,13 @@ export var TodoList = React.createClass({ //dung export de dung trong test file
     console.log(this.props);
     console.log('keyword: ', searchText);
     var renderTodos = () => {
-      if(todos.length === 0) {
+      var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+      if(filteredTodos.length === 0) {
         return (
           <p className="container__message">Nothing To Do</p>
         );
       }
-      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
+      return filteredTodos.map((todo) => {
         {/*moi <Todo /> component can co 1 unique key prop dung de quan ly tung component rieng biet*/}
         return (
           <Todo key={todo.id} {...todo}/> //... la spread obj, spread out all properties of each individual Todo component
