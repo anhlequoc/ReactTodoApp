@@ -26,7 +26,7 @@ export var todosReducer = (state = [], action) => {
         ...state,
         action.todo
       ];
-    case 'TOGGLE_TODO':
+    case 'UPDATE_TODO':
       /* solution here
       return state.map((todo) => {
         if (todo.id === action.id) {
@@ -38,19 +38,17 @@ export var todosReducer = (state = [], action) => {
         }
       }) */
 
-      var updatedTodos = state.map((todo) => { // dùng updatedTodos để tránh thay đỏi arr state (tranh lỗi update pure function, báo bởi deep-freeze-strict)
+      return state.map((todo) => { // dùng updatedTodos để tránh thay đỏi arr state (tranh lỗi update pure function, báo bởi deep-freeze-strict)
         if(todo.id === action.id) {
-          var nextCompleted = !todo.completed;
           return {
             ...todo,
-            completed: nextCompleted,
-            completedAt: nextCompleted ? moment().unix() : undefined
-          };
+            ...action.updates
+          }
         } else {
             return todo;
         }
       });
-      return updatedTodos;
+
     case 'ADD_TODOS':
       return [
         ...state,
