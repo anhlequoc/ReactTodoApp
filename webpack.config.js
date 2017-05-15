@@ -1,6 +1,8 @@
 var webpack = require('webpack');//add from section 7 foundation clip 02
 var path = require('path');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
 module.exports = {
 	entry: [
 		'script!jquery/dist/jquery.min.js',
@@ -15,6 +17,11 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			'$': 'jquery',
 			'jQuery': 'jquery'
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+			compressor: {
+				warnings: false //disable warning in terminal
+			}
 		})
 	],
 	//
@@ -58,5 +65,5 @@ module.exports = {
 			path.resolve(__dirname, './node_modules/foundation-sites/scss')
 		]
 	},
-	devtool: '#inline-source-map'
+	devtool: process.env.NODE_ENV === 'production' ? undefined : '#inline-source-map'
 };
