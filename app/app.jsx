@@ -1,15 +1,21 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var {Provider} = require('react-redux');
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+var {hashHistory} = require('react-router');
 
-//var TodoApp = require('TodoApp');
-import TodoApp from 'TodoApp';
 
 var actions = require('actions');
 var store = require('configureStore').configure();
-var TodoAPI = require('TodoAPI');
-import Login from 'Login';
+import firebase from 'app/firebase';
+import router from 'app/router/';
+
+firebase.auth().onAuthStateChanged((user) => {
+	if (user) { //nếu có user log in
+		hashHistory.push('/todos');
+	} else { //nếu không có user log in thì về trang log in
+		hashHistory.push('/');
+	}
+});
 // store.subscribe( () => {
 // 	var state = store.getState();
 // 	console.log('New state', state);
@@ -31,14 +37,10 @@ store.dispatch(actions.startAddTodos());
 $(document).foundation();
 //load app/styles/app.css
 require('style!css!sass!applicationStyles');{/*load alias applicationStyles in webpack.config by using style loader, css loader and sass loaders*/}
+
 ReactDOM.render(
 	<Provider store={store}>
-		<Router history={hashHistory}>
-			<Route path="/">
-				<Route path="todos" component={TodoApp} />
-				<IndexRoute component={Login}/>
-			</Route>
-		</Router>
+		{router}
 	</Provider>,
 	document.getElementById('app')
 );
