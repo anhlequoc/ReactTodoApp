@@ -88,3 +88,6 @@ command: heroku config: set ...; chạy ở terminal
     }
   ```
   - sửa lại cấu trúc firebase db để theo dạng trên: users > user_id > todos > todo_id
+
+### Clip 146 - testing with authentication
+  - cho test db, dùng personal access tokens từ github
