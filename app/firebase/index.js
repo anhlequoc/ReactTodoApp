@@ -15,5 +15,6 @@ try {
 
 }
 
+export var githubProvider = new firebase.auth.GithubAuthProvider();//social login of github
 export var firebaseRef = firebase.database().ref();
 export default firebase;

@@ -69,3 +69,7 @@ new webpack.DefinePlugin({
   },
 ```
 test: cần viết liền để tránh bị tự động add thêm khoảng trắng. Nếu viết: SET NODE_ENV=test && karma start -> path sẽ là: config/test .env -> không tìm thấy
+
+### Clip 140 - add Heroku to firebase
+Cần configure Heroku (vì lúc này file trong folder config sẽ ko được gửi lên)
+command: heroku config: set ...; chạy ở terminal
