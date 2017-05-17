@@ -12,6 +12,7 @@ import router from 'app/router/';
 firebase.auth().onAuthStateChanged((user) => {
 	if (user) { //nếu có user log in
 		store.dispatch(actions.login(user.uid));
+		store.dispatch(actions.startAddTodos());
 		hashHistory.push('/todos');
 	} else { //nếu không có user log in thì về trang log in
 		store.dispatch(actions.logout());
@@ -26,9 +27,6 @@ firebase.auth().onAuthStateChanged((user) => {
 //
 // var inititalTodos = TodoAPI.getTodos();
 // store.dispatch(actions.addTodos(inititalTodos));
-
-store.dispatch(actions.startAddTodos());
-
 
 // store.dispatch(actions.addTodo('try the redux on Todo app'));
 // store.dispatch(actions.setSearchText('try'));

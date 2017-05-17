@@ -73,3 +73,18 @@ test: cần viết liền để tránh bị tự động add thêm khoảng tr�
 ### Clip 140 - add Heroku to firebase
 Cần configure Heroku (vì lúc này file trong folder config sẽ ko được gửi lên)
 command: heroku config: set ...; chạy ở terminal
+
+### Clip 145 - firebase security rules
+  ```javascript
+    {
+      "rules": {
+        "users": {
+          "$user_id": {
+            ".read": "$user_id === auth.id", //nếu user_id trùng với auth.id thì được quyền read
+            ".write": "$user_id === auth.id" //tương tự ở trên
+          }
+        }
+      }
+    }
+  ```
+  - sửa lại cấu trúc firebase db để theo dạng trên: users > user_id > todos > todo_id

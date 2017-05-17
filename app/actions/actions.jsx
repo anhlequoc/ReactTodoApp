@@ -31,7 +31,8 @@ export var startAddTodo = (text) => {
       createdAt: moment().unix(), //return timestamp
       completedAt: null //null vì set vào firebase
     };
-    var todoRef = firebaseRef.child('todos').push(todo); //save to firebase db
+    var uid = getState().auth.uid;
+    var todoRef = firebaseRef.child(`users/${uid}/todos`).push(todo); //save to firebase db
 
     return todoRef.then(() => { //khi add todo done ở firebase thì thực hiện hàm này, dispatch addTodo action ở trên và làm browser re-render component cho todo mới
       //khi firebase db update -> dispatch action để update view
@@ -52,7 +53,8 @@ export var addTodos = (todos) => {
 
 export var startAddTodos = () => {
   return (dispatch, getState) => {
-    var todosRef = firebaseRef.child('todos').once('value');//fetch all data from child 'todos'
+    var uid = getState().auth.uid;
+    var todosRef = firebaseRef.child(`users/${uid}/todos`).once('value');//fetch all data from child 'todos'
 
     return todosRef.then((snapshot) => {
       var todos = snapshot.val() || {}; //truong hop khong co data
@@ -79,7 +81,8 @@ export var updateTodo = (id, updates) => {
 
 export var startToggleTodo = (id, completed) => {
   return (dispatch, getState) => {
-    var todoRef = firebaseRef.child('todos/' + id); //ES6 template string: firebaseRef.child(`todos/$(id)`);
+    var uid = getState().auth.uid;
+    var todoRef = firebaseRef.child(`users/${uid}/todos/${id}`); //ES6 template string: firebaseRef.child(`todos/$(id)`);
     var updates = {
       completed: completed,
       compeltedAt: completed ? moment().unix(): null
