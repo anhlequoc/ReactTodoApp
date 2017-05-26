@@ -3,8 +3,8 @@ var {connect} = require('react-redux');
 var moment = require('moment');
 var actions = require('actions');
 
-export var Todo = React.createClass({ //export module này để dùng trong file test
-  render: function() {
+export class Todo extends React.Component { //export module này để dùng trong file test
+  render () {
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
     var renderDate = () => {
@@ -34,6 +34,6 @@ export var Todo = React.createClass({ //export module này để dùng trong fil
         </div>
     );
   }
-});
+}
 
 export default connect()(Todo);//khi dùng var someVar = require() -> someVar sẽ là default

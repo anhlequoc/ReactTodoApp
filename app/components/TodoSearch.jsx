@@ -2,8 +2,8 @@ var React = require('react');
 var {connect} = require('react-redux');
 var actions = require('actions');
 
-export var TodoSearch = React.createClass({ //use export to use TodoSearch for testing
-  render: function() {
+export class TodoSearch extends React.Component { //use export to use TodoSearch for testing
+  render () {
     var {dispatch, showCompleted, searchText} = this.props;
     return (
       <div className="container__header">
@@ -24,7 +24,7 @@ export var TodoSearch = React.createClass({ //use export to use TodoSearch for t
       </div>
     );
   }
-});
+}
 
 export default connect(
   (state) => { //khi bao state cho redux

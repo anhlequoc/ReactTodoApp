@@ -7,8 +7,8 @@ var actions = require('actions');
     - write test: spies function that it will or will not called depending on passed value is valid or invalid
 */}
 
-export var AddTodo = React.createClass({
-  handleSubmit: function(e) {
+export class AddTodo extends React.Component {
+  handleSubmit (e) {
     e.preventDefault();
     var {dispatch} = this.props;
     var todoContent = this.refs.todoText.value;
@@ -20,17 +20,17 @@ export var AddTodo = React.createClass({
     } else {
       this.refs.todoText.focus(); {/*focus vao field de add todo*/}
     }
-  },
-  render: function() {
+  }
+  render () {
     return (
       <div className="container__footer">
-        <form className="addtodo-form" ref="form" onSubmit={this.handleSubmit}>
+        <form className="addtodo-form" ref="form" onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="todoText" placeholder="enter your todo"></input>
           <button className="button expanded">ADD TODO</button>
         </form>
       </div>
     );
   }
-});
+}
 
 export default connect()(AddTodo);

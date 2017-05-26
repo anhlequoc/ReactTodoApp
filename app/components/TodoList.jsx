@@ -4,8 +4,8 @@ var {connect} = require('react-redux');
 import Todo from 'Todo';
 var TodoAPI = require('TodoAPI');
 
-export var TodoList = React.createClass({ //dung export de dung trong test file
-  render: function() {
+export class TodoList extends React.Component { //dung export de dung trong test file
+  render () {
     var {todos, showCompleted, searchText} = this.props;
     console.log(this.props);
     console.log('keyword: ', searchText);
@@ -29,7 +29,7 @@ export var TodoList = React.createClass({ //dung export de dung trong test file
         </div>
     );
   }
-});
+}
 
 export default connect(
   (state) => {

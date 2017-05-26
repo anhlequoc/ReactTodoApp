@@ -40,7 +40,7 @@ module.exports = {
       //return true: item ở trong array, return false: item bị loại khỏi array
       if (searchText === undefined || searchText.length === 0) {
         return true;
-      } else if (todo.text.toLowerCase().indexOf(searchText) !== -1) { // -1 tức không có trong string.indexOf
+      } else if (todo.text.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) { // -1 tức không có trong string.indexOf
         return true;
       } else {return false;}
 
